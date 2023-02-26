@@ -148,23 +148,6 @@ pub struct DecoratedParser<'a> {
     code: Option<Vec<pulldown_cmark::CowStr<'a>>>,
 }
 
-impl<'a> DecoratedParser<'a> {
-    pub fn new(
-        parser: cmark::Parser<'a, 'a>,
-        syntax: std::sync::Arc<SyntaxHighlight>,
-        theme: Option<&'a str>,
-    ) -> error::Result<Self> {
-        verify_theme(&syntax, theme)?;
-        Ok(DecoratedParser {
-            parser,
-            syntax,
-            theme,
-            lang: None,
-            code: None,
-        })
-    }
-}
-
 impl<'a> Iterator for DecoratedParser<'a> {
     type Item = Event<'a>;
 
@@ -203,14 +186,6 @@ impl<'a> Iterator for DecoratedParser<'a> {
             item => item,
         }
     }
-}
-
-pub fn decorate_markdown<'a>(
-    parser: cmark::Parser<'a, 'a>,
-    syntax: std::sync::Arc<SyntaxHighlight>,
-    theme_name: Option<&'a str>,
-) -> error::Result<DecoratedParser<'a>> {
-    DecoratedParser::new(parser, syntax, theme_name)
 }
 
 #[cfg(test)]

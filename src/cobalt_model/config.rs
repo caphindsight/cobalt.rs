@@ -55,6 +55,7 @@ impl Config {
             includes_dir,
             assets,
             minify,
+            mmark_args,
         } = source;
 
         if include_drafts {
@@ -115,10 +116,7 @@ impl Config {
                 .then(|| syntax_highlight.theme.clone()),
         };
         let markdown = mark::MarkdownBuilder {
-            syntax: syntax.clone(),
-            theme: syntax_highlight
-                .enabled
-                .then(|| syntax_highlight.theme.clone()),
+            args: mmark_args.clone(),
         };
         let vimwiki = vwiki::VimwikiBuilder {
             theme: syntax_highlight.theme,

@@ -30,6 +30,7 @@ pub struct Config {
     pub includes_dir: &'static str,
     pub assets: Assets,
     pub minify: Minify,
+    pub mmark_args: Vec<String>,
 }
 
 impl Default for Config {
@@ -51,6 +52,7 @@ impl Default for Config {
             includes_dir: "_includes",
             assets: Assets::default(),
             minify: Minify::default(),
+            mmark_args: vec![],
         }
     }
 }
